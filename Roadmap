@@ -1,0 +1,13 @@
+-Dataset creation 
+
+1) Turkish nemotron construction
+- This synthetic dataset will be translated from Nvidia dataset (https://huggingface.co/blog/nvidia/nemotron-pii)
+Since this dataset is built for English, there might be some inconsistent terms like SSN vs TCKN.
+To handle this situation, LLMs will be used for translation.
+
+2) Wikipedia-based dataset construction
+- The main part of this study is to create a dataset from Wikipedia. In this concept;
+  - Wiki Turkish will be downloaded
+  - Based on the article categories, balanced samples will be selected. For example, 1k for finance, 1k for health-related topics, etc.
+  - Then, using a pre-trained model, first-level labelling will be done
+  - As a complementary, human-based evaluation will be done.
