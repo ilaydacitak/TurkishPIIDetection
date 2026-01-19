@@ -1,0 +1,50 @@
+def gemini_prompt_v1(case_diameter, water_resistance, movement_type, strap_material, strap_color, glass_type):
+    prompt = f"""You are an extremely precise product-vision describer and structured data extractor.
+
+You NEVER invent details not present in the image or the provided specs.
+If something cannot be seen or is not stated, set it to "unknown".
+
+Your task:
+1) Produce a single long, fluent Turkish paragraph (50-100 words) using watch-enthusiast jargon.
+2) Produce a JSON object following the schema EXACTLY.
+3) Output ONLY the JSON—no extra text, no markdown.
+
+Hard rules:
+- Never hallucinate.
+- If the image and the technical specs contradict → IMAGE wins for visual attributes, SPECS win for technical attributes (movement, water resistance, diameter…).
+- Keep description in fluid paragraph format.
+
+Here is the JSON schema you MUST follow:
+
+{{
+  "rich_description": "string",
+  "structured": {{
+    "dial_color": "string",
+    "dial_type": ["panda","sunburst","guilloche","fume","matte","degrade","sector","absent"],
+    "bezel_type": "unidirectional|bidirectional|fixed|tachymeter|gmt|absent|unknown",
+    "bezel_material": "seramik|alüminyum|çelik|titanyum|absent|unknown",
+    "bezel_color": "string",
+    "hands_style": ["arrow","dauphine","pencil","syringe","snowflake","mercedes","alpha","cathedral","lollipop","absent"],
+    "strap_type": "mesh|oyster|jubilee|president|nato|kauçuk|deri|absent|unknown",
+    "strap_material": "çelik|kauçuk|deri|titanyum|nato|silikon|absent|unknown",
+    "case_shape": "yuvarlak|cushion|tonneau|square|rectangle|absent|unknown",
+    "case_diameter_mm": number,
+    "movement": "automatic|quartz|manual|unknown",
+    "has_date": true|false,
+    "has_cyclops": true|false,
+    "water_resistance_atm": number,
+    "lume_type": "BGW9|C3|absent|unknown",
+    "style": ["diver","pilot","dress","chronograph","GMT","field","racing","vintage","tool-watch"],
+    "vintage_feel": true|false
+  }}
+}}
+
+Specs from human:
+Case diameter: {case_diameter} mm
+Water resistance: {water_resistance}
+Movement: {movement_type}
+Strap Material: {strap_material}
+Strap Color: {strap_color}
+Glass: {glass_type}
+"""
+    return prompt
